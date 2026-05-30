@@ -1,7 +1,7 @@
 # Estetica Automotiva
 <img width="761" height="1308" alt="imagem (4)" src="https://github.com/user-attachments/assets/b4bf617c-eb3b-4710-85d6-e47b4ac31aff" />
-<img width="1174" height="632" alt="imagem (3)" src="https://github.com/user-attachments/assets/a7f94ad9-36f1-46a4-9292-45c1607aaa80" />
-<img width="1082" height="703" alt="imagem (2)" src="https://github.com/user-attachments/assets/b9aced50-43f3-484b-9514-38f4a8f27645" />
+
+
 
 
 Aplicacao Java Web para controle de clientes e agendamento de servicos em uma estetica automotiva. O projeto usa Maven, Spring Boot, Spring Security, Thymeleaf e MongoDB, podendo ser conectado ao MongoDB Atlas.
