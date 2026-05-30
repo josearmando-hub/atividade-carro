@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda do Gestor</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+<main class="container">
+    <section class="panel">
+        <h1>Agenda de servicos</h1>
+        <p th:text="${'Periodo: ' + #temporals.format(start, 'dd/MM/yyyy') + ' a ' + #temporals.format(end, 'dd/MM/yyyy')}"></p>
+        <form th:action="@{/agenda}" method="get" class="grid">
+            <div>
+                <label for="visao">Visualizacao</label>
+                <select id="visao" name="visao">
+                    <option value="dia" th:selected="${visao == 'dia'}">Diaria</option>
+                    <option value="semana" th:selected="${visao == 'semana'}">Semanal</option>
+                </select>
+            </div>
+            <div>
+                <label for="data">Data base</label>
+                <input id="data" name="data" type="date" th:value="${start}">
+            </div>
+            <div class="actions">
+                <button type="submit">Filtrar</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="panel">
+        <table>
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Cliente</th>
+                <th>Servico</th>
+                <th>Preco</th>
+                <th>Status</th>
+                <th>Acoes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${appointments}">
+                <td th:text="${#temporals.format(item.date, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#temporals.format(item.time, 'HH:mm')}"></td>
+                <td th:text="${item.clientName}"></td>
+                <td th:text="${item.serviceName}"></td>
+                <td th:text="${#numbers.formatCurrency(item.servicePrice)}"></td>
+                <td th:text="${item.status}"></td>
+                <td>
+                    <div class="actions" th:if="${item.status.name() == 'SCHEDULED'}">
+                        <a class="button secondary" th:href="@{/agendamentos/{id}/editar(id=${item.id})}">Editar</a>
+                        <form th:action="@{/agendamentos/{id}/cancelar(id=${item.id})}" method="post">
+                            <button class="danger" type="submit">Cancelar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Estetica Automotiva</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<main class="auth panel">
+    <h1>Entrar</h1>
+    <p>Acesse sua conta para consultar ou gerenciar agendamentos.</p>
+    <div class="success" th:if="${param.registered}">Cadastro realizado. Faca login para continuar.</div>
+    <div class="error" th:if="${param.error}">E-mail ou senha invalidos.</div>
+    <div class="success" th:if="${param.logout}">Voce saiu do sistema.</div>
+    <form th:action="@{/login}" method="post">
+        <label for="username">E-mail</label>
+        <input id="username" name="username" type="email" required>
+        <label for="password">Senha</label>
+        <input id="password" name="password" type="password" required>
+        <div class="actions">
+            <button type="submit">Entrar</button>
+            <a class="button secondary" th:href="@{/cadastro}">Criar cadastro</a>
+        </div>
+    </form>
+    <p>Gestor inicial: admin@estetica.com / admin123</p>
+</main>
+</body>
+</html>

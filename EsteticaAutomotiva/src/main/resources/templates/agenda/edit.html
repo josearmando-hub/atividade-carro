@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Agendamento</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+<main class="container">
+    <section class="panel">
+        <h1>Editar agendamento</h1>
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+        <form th:action="@{/agendamentos/{id}/editar(id=${appointment.id})}" method="post">
+            <label for="serviceTypeId">Tipo de servico</label>
+            <select id="serviceTypeId" name="serviceTypeId" required>
+                <option th:each="service : ${services}" th:value="${service.id}"
+                        th:selected="${service.id == appointment.serviceTypeId}"
+                        th:text="${service.name + ' - R$ ' + service.currentPrice}"></option>
+            </select>
+            <div class="grid">
+                <div>
+                    <label for="date">Data</label>
+                    <input id="date" name="date" type="date" th:value="${appointment.date}" required>
+                </div>
+                <div>
+                    <label for="time">Hora</label>
+                    <input id="time" name="time" type="time" th:value="${appointment.time}" step="1800" required>
+                </div>
+            </div>
+            <div class="actions">
+                <button type="submit">Salvar</button>
+                <a class="button secondary" th:href="@{/}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Agendamentos</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+<main class="container">
+    <section class="panel">
+        <h1>Meus agendamentos</h1>
+        <div class="actions">
+            <a class="button" th:href="@{/agendamentos/novo}">Novo agendamento</a>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Servico</th>
+                <th>Preco</th>
+                <th>Status</th>
+                <th>Acoes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${appointments}">
+                <td th:text="${#temporals.format(item.date, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#temporals.format(item.time, 'HH:mm')}"></td>
+                <td th:text="${item.serviceName}"></td>
+                <td th:text="${#numbers.formatCurrency(item.servicePrice)}"></td>
+                <td th:text="${item.status}"></td>
+                <td>
+                    <div class="actions" th:if="${item.status.name() == 'SCHEDULED'}">
+                        <a class="button secondary" th:href="@{/agendamentos/{id}/editar(id=${item.id})}">Editar</a>
+                        <form th:action="@{/agendamentos/{id}/cancelar(id=${item.id})}" method="post">
+                            <button class="danger" type="submit">Cancelar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cliente</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+<main class="container">
+    <section class="panel">
+        <h1>Editar cliente</h1>
+        <form th:action="@{/clientes/{id}/editar(id=${client.id})}" th:object="${client}" method="post">
+            <div class="grid">
+                <div>
+                    <label for="name">Nome</label>
+                    <input id="name" th:field="*{name}" required>
+                </div>
+                <div>
+                    <label for="phone">Telefone</label>
+                    <input id="phone" th:field="*{phone}" required>
+                </div>
+            </div>
+            <label for="platesText">Placas</label>
+            <input id="platesText" name="platesText" th:value="${platesText}" required>
+            <div class="actions">
+                <button type="submit">Salvar</button>
+                <a class="button secondary" th:href="@{/clientes}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

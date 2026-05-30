@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Servico</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+<main class="container">
+    <section class="panel">
+        <h1>Tipos de servico</h1>
+        <form th:action="@{/servicos}" th:object="${service}" method="post">
+            <div class="grid">
+                <div>
+                    <label for="name">Nome</label>
+                    <input id="name" th:field="*{name}" required>
+                </div>
+                <div>
+                    <label for="currentPrice">Preco vigente</label>
+                    <input id="currentPrice" th:field="*{currentPrice}" type="number" step="0.01" min="0" required>
+                </div>
+            </div>
+            <label for="description">Descricao detalhada</label>
+            <textarea id="description" th:field="*{description}" required></textarea>
+            <div class="actions">
+                <button type="submit">Cadastrar servico</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h2>Servicos cadastrados</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descricao</th>
+                <th>Preco</th>
+                <th>Status</th>
+                <th>Acoes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${services}">
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.description}"></td>
+                <td th:text="${#numbers.formatCurrency(item.currentPrice)}"></td>
+                <td th:text="${item.active ? 'Ativo' : 'Inativo'}"></td>
+                <td>
+                    <form th:action="@{/servicos/{id}/alternar(id=${item.id})}" method="post">
+                        <button class="secondary" type="submit" th:text="${item.active ? 'Desativar' : 'Ativar'}"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

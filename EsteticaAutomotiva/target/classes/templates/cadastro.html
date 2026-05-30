@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<main class="auth panel">
+    <h1>Cadastro de cliente</h1>
+    <p>Os dados sao usados somente para identificacao, contato e execucao dos servicos contratados.</p>
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+    <form th:action="@{/cadastro}" th:object="${client}" method="post">
+        <label for="name">Nome</label>
+        <input id="name" th:field="*{name}" required>
+        <label for="cpf">CPF</label>
+        <input id="cpf" th:field="*{cpf}" required>
+        <label for="phone">Telefone</label>
+        <input id="phone" th:field="*{phone}" required>
+        <label for="email">E-mail</label>
+        <input id="email" th:field="*{email}" type="email" required>
+        <label for="rawPassword">Senha</label>
+        <input id="rawPassword" name="rawPassword" type="password" minlength="6" required>
+        <label for="platesText">Placas dos veiculos</label>
+        <input id="platesText" name="platesText" placeholder="ABC1D23, XYZ9A87" required>
+        <label class="checkbox">
+            <input th:field="*{lgpdConsent}" type="checkbox" required>
+            <span>Li e aceito o uso dos dados conforme a LGPD, para cadastro, contato e execucao de servicos.</span>
+        </label>
+        <div class="actions">
+            <button type="submit">Cadastrar</button>
+            <a class="button secondary" th:href="@{/login}">Voltar</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>

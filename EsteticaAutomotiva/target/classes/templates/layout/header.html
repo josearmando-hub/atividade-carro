@@ -1,0 +1,13 @@
+<header class="topbar" th:fragment="header">
+    <div class="brand">Estetica Automotiva</div>
+    <nav class="nav">
+        <a th:href="@{/meus-agendamentos}" sec:authorize="hasRole('CLIENT')">Meus agendamentos</a>
+        <a th:href="@{/agendamentos/novo}" sec:authorize="hasRole('CLIENT')">Agendar servico</a>
+        <a th:href="@{/agenda}" sec:authorize="hasRole('ADMIN')">Agenda</a>
+        <a th:href="@{/clientes}" sec:authorize="hasRole('ADMIN')">Clientes</a>
+        <a th:href="@{/servicos}" sec:authorize="hasRole('ADMIN')">Servicos</a>
+        <form th:action="@{/logout}" method="post">
+            <button class="secondary" type="submit">Sair</button>
+        </form>
+    </nav>
+</header>

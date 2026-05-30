@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+<main class="container">
+    <section class="panel">
+        <h1>Clientes</h1>
+        <p>Lista administrativa com mascaramento de dados sensiveis conforme politica de privacidade.</p>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Placas</th>
+                <th>Acoes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="client : ${clients}">
+                <td th:text="${client.name}"></td>
+                <td th:text="${clientService.maskCpf(client.cpf)}"></td>
+                <td th:text="${clientService.maskEmail(client.email)}"></td>
+                <td th:text="${#strings.substring(client.phone, 0, client.phone.length() > 5 ? 5 : client.phone.length()) + '****'}"></td>
+                <td th:text="${#strings.listJoin(client.vehiclePlates, ', ')}"></td>
+                <td>
+                    <div class="actions">
+                        <a class="button secondary" th:href="@{/clientes/{id}/editar(id=${client.id})}">Editar</a>
+                        <form th:action="@{/clientes/{id}/excluir(id=${client.id})}" method="post">
+                            <button class="danger" type="submit">Excluir</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
